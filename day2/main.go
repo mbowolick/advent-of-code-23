@@ -85,8 +85,6 @@ func parseGameData(event string) (int, map[string]int, error) {
 	} 
 	
 	// For each pull during the game build the gameData map
-	// var gameData map[string]int
-	// gameData = make(map[string]int)
 	gameData := map[string]int{
     "red": 0,
     "green": 0,
@@ -114,11 +112,10 @@ func parseGameData(event string) (int, map[string]int, error) {
 			pull_count_int, _ := strconv.Atoi(pull[0]) // 1
 			fmt.Printf("|%s:%d|\n",pull_colour, pull_count_int)
 			
-			// Update gameData
+			// Update gameData if a value is seen higher than previous
 			if pull_count_int > gameData[pull_colour] {
 				gameData[pull_colour] = pull_count_int
 			}
-			// gameData[pull_colour] += pull_count_int
 		}
 	}
 	return game_index, gameData, nil
@@ -126,7 +123,7 @@ func parseGameData(event string) (int, map[string]int, error) {
 
 func main() {
 	// According to a set of N pull events
-	// Check if the combined number of the same colour across N is <= POSSIBLE NUMBER
+	// Check if the number of the same colour across N is <= POSSIBLE NUMBER
 	// If all checked colours are within the POSSIBLE NUMBER the GAME ID WINS.
 	// Add all winning IDS. 
 	
